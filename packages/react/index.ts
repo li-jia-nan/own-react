@@ -1,8 +1,8 @@
-import { jsx } from './src/jsx';
+import { jsxDEV } from './src/jsx';
 
 const react = {
-  varsion: '0.0.0',
-  createElement: jsx,
+  version: '0.0.0',
+  createElement: jsxDEV,
 };
 
 export default react;

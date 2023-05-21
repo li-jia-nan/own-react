@@ -38,6 +38,11 @@ export function renderRoot(root: FiberRootNode) {
       workInProgress = null;
     }
   } while (true);
+
+  const finishedWork = root.current.alternate;
+  root.finishedWork = finishedWork;
+
+  commitRoot(root);
 }
 
 function workLoop() {

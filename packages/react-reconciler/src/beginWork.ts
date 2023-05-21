@@ -15,6 +15,7 @@ export const beginWork = (wip: FiberNode) => {
     default:
       break;
   }
+  return null;
 };
 
 function updateHostRoot(wip: FiberNode) {

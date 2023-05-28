@@ -1,7 +1,6 @@
-import { REACT_ELEMENT_TYPE } from 'shared/ReactSymbols';
 import { FiberNode } from './fiber';
 import { HostComponent, HostRoot, HostText } from './workTags';
-import { appendInitialChild, createInstance, createTextInstance, Container } from './hostConfig';
+import { appendInitialChild, createInstance, createTextInstance } from './hostConfig';
 import { NoFlags } from './fiberFlags';
 
 // 递归中的归阶段

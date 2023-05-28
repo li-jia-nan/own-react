@@ -1,7 +1,9 @@
 /* eslint-disable no-constant-condition */
 import { beginWork } from './beginWork';
+import { commitMutationEffects } from './commitWork';
 import { completeWork } from './completeWork';
 import { FiberNode, FiberRootNode, createWorkInProgress } from './fiber';
+import { MutationMask, NoFlags } from './fiberFlags';
 import { HostRoot } from './workTags';
 
 let workInProgress: FiberNode | null;
@@ -43,6 +45,29 @@ export function renderRoot(root: FiberRootNode) {
   root.finishedWork = finishedWork;
 
   commitRoot(root);
+}
+
+function commitRoot(root: FiberRootNode) {
+  const finishedWork = root.finishedWork;
+  if (finishedWork === null) {
+    return;
+  }
+  console.log('commitRoot', finishedWork);
+  root.finishedWork = null;
+
+  const subtreeHasEffect = (finishedWork.subtreeFlags & MutationMask) !== NoFlags;
+
+  const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
+
+  if (subtreeHasEffect || rootHasEffect) {
+    // beforeMutation
+    // mutation
+    commitMutationEffects(finishedWork);
+    root.current = finishedWork;
+    // layout
+  } else {
+    root.current = finishedWork;
+  }
 }
 
 function workLoop() {
